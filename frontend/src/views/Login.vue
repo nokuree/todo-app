@@ -50,8 +50,8 @@ export default {
       signInWithEmailAndPassword(auth, this.email, this.password)
         .then((userCredential) => {
           console.log("User signed in:", userCredential.user);
-          // Optionally, redirect the user after successful login
-          this.$router.push("/dashboard");
+          const redirectPath = this.$route.query.redirect || "./dashboard";
+          this.$router.push(redirectPath);
         })
         .catch((error) => {
           this.errorMessage = error.message;
