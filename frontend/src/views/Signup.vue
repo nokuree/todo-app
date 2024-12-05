@@ -52,7 +52,7 @@ export default {
         .then((userCredential) => {
           console.log("User created:", userCredential.user);
           // Optionally, redirect the user after successful sign-up
-          this.$router.push("/dashboard");
+          this.$router.push("/login");
         })
         .catch((error) => {
           this.errorMessage = error.message;
