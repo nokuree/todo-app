@@ -24,6 +24,9 @@
           />
         </div>
         <button @click="login" class="login-button">Sign In</button>
+        <button @click="googleSignIn" class="google-signin-button">
+          Sign In with Google
+        </button>
       </div>
 
       <div v-else>
@@ -50,6 +53,8 @@ import {
   sendSignInLinkToEmail,
   isSignInWithEmailLink,
   signInWithEmailLink,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from "firebase/auth";
 import { app } from "../firebase";
 
@@ -129,6 +134,22 @@ export default {
     },
     resendLink() {
       this.sendVerificationEmail(this.email);
+    },
+    async googleSignIn() {
+      const auth = getAuth(app);
+      const provider = new GoogleAuthProvider();
+
+      try {
+        const result = await signInWithPopup(auth, provider);
+        console.log("User signed in with Google:", result.user);
+
+        // Redirect to dashboard
+        const redirectPath = this.$route.query.redirect || "./dashboard";
+        this.$router.push(redirectPath);
+      } catch (error) {
+        this.errorMessage = `Google Sign-In error: ${error.message}`;
+        console.error(error);
+      }
     },
   },
   mounted() {
@@ -239,5 +260,21 @@ export default {
   color: #d93025; /* Red color for errors */
   text-align: center;
   margin-top: 10px;
+}
+
+.google-signin-button {
+  background-color: #4285f4;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: background-color 0.3s;
+}
+
+.google-signin-button:hover {
+  background-color: #357ae8;
 }
 </style>

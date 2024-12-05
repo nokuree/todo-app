@@ -3,7 +3,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { app } from "../firebase";
-import HomeView from "../views/HomeView.vue";
+// import HomeView from "../views/HomeView.vue";
 import Login from "../views/Login.vue";
 import SignUp from "../views/Signup.vue";
 import DashboardView from "../views/DashboardView.vue";
@@ -11,8 +11,8 @@ import DashboardView from "../views/DashboardView.vue";
 const routes = [
   {
     path: "/",
-    name: "home",
-    component: HomeView,
+    name: "loginDefault",
+    component: Login,
   },
   {
     path: "/login",
